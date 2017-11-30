@@ -4,7 +4,7 @@ from .models import *
 from .serializers import *
 from django.contrib.auth.models import User
 from rest_framework import permissions
-from .permissions import IsOwnerOrReadOnly
+from .permissions import *
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -106,10 +106,7 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
-class UserViewSet(mixins.ListModelMixin,
-                  mixins.RetrieveModelMixin,
-                  mixins.CreateModelMixin,
-                  viewsets.GenericViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """
     list:
     Return a list of all users.
@@ -119,7 +116,14 @@ class UserViewSet(mixins.ListModelMixin,
 
     create:
     Create a new user.
+
+    update:
+    Updates an user.
+    
+    delete:
+    Deletes an user.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (UserIsOwnerOrReadAndCreateOnly,)
 

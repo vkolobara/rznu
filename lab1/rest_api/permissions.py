@@ -6,3 +6,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj.author == request.user
+
+class UserIsOwnerOrReadAndCreateOnly(permissions.BasePermission):
+    
+    def has_object_permission(self, request, view, obj):
+        if request.method in ['POST'] + list(permissions.SAFE_METHODS):
+            return True
+        return request.user.is_staff or obj.id == request.user.id

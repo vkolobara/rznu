@@ -25,7 +25,9 @@ user_list = views.UserViewSet.as_view({
 })
 
 user_detail = views.UserViewSet.as_view({
-    'get': 'retrieve'    
+    'get': 'retrieve',
+    'put': 'update',
+    'delete': 'destroy'
 })
 
 urlpatterns = [
