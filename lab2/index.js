@@ -25,7 +25,7 @@ io.on('connection', function (socket) {
     });
 });
 
-http.listen(30000, function () {
-    console.log('listening on localhost:30000');
+http.listen(666, function () {
+    console.log('listening on localhost:666');
 });
 
